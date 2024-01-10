@@ -26,8 +26,8 @@ class _NewItemPageState extends State<NewItemPage> {
         _isSending = true;
       });
       _formKey.currentState!.save();
-      final url = Uri.https("flutter-prep-fa24c-default-rtdb.firebaseio.com",
-          "shopping-list.json");
+      final url = Uri.https(
+          "shopping-app-lr-default-rtdb.firebaseio.com", "shopping-list.json");
       final response = await http.post(url,
           headers: {
             "Content-Type": "application/json",

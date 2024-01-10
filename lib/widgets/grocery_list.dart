@@ -27,7 +27,7 @@ class _GroceryListState extends State<GroceryList> {
 
   void _loadItems() async {
     final url = Uri.https(
-        "flutter-prep-fa24c-default-rtdb.firebaseio.com", "shopping-list.json");
+        "shopping-app-lr-default-rtdb.firebaseio.com", "shopping-list.json");
 
     try {
       final response = await http.get(url);
@@ -75,7 +75,7 @@ class _GroceryListState extends State<GroceryList> {
       _groceryList.remove(item);
     });
 
-    final url = Uri.https("flutter-prep-fa24c-default-rtdb.firebaseio.com",
+    final url = Uri.https("shopping-app-lr-default-rtdb.firebaseio.com",
         "shopping-list/${item.id}.json");
     final response = await http.delete(url);
 
@@ -145,7 +145,14 @@ class _GroceryListState extends State<GroceryList> {
           ),
         ],
       ),
-      body: Padding(padding: const EdgeInsets.only(top: 15.0), child: content),
+      body: RefreshIndicator(
+          onRefresh: () async {
+            setState(() {
+              _loadItems();
+            });
+          },
+          child: Padding(
+              padding: const EdgeInsets.only(top: 15.0), child: content)),
     );
   }
 }
